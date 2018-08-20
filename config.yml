@@ -1,0 +1,22 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 9180
+
+logging:
+  level: INFO
+  loggers:
+    roberto.magale: INFO
+    org.reflections.Reflections: ERROR
+
+database:
+  driverClass: org.h2.Driver
+  user: sa
+  password: sa
+  url: jdbc:h2:./database;LOCK_MODE=1
+
+swagger:
+  resourcePackage: roberto.magale.resources
