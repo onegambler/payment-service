@@ -22,12 +22,9 @@ public class TransactionService {
     public Transaction transferMoney(Transaction transaction) {
         requireNonNull(transaction, "transaction cannot be null");
         Long transactionId = this.repository.updateAccounts(transaction);
-        return Transaction.builder()
-                .destinationAccountId(transaction.getDestinationAccountId())
-                .sourceAccountId(transaction.getSourceAccountId())
-                .amount(transaction.getAmount())
-                .id(transactionId)
-                .build();
+        return transaction.toBuilder()
+            .id(transactionId)
+            .build();
     }
 
     public Optional<Transaction> getTransaction(Long transactionId) {

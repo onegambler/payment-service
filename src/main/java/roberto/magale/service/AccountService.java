@@ -21,11 +21,7 @@ public class AccountService {
     public Account addAccount(Account account) {
         requireNonNull(account, "Account cannot be null");
         Long id = this.repository.insert(account);
-        return Account.builder()
-                .balance(account.getBalance())
-                .holderName(account.getHolderName())
-                .id(id)
-                .build();
+        return account.toBuilder().id(id).build();
     }
 
     public boolean removeAccount(Long accountId) {
@@ -35,11 +31,7 @@ public class AccountService {
 
     public Optional<Account> updateAccount(Account account, Long accountId) {
         requireNonNull(account, "Account cannot be null");
-        Account newAccount = Account.builder()
-                .balance(account.getBalance())
-                .holderName(account.getHolderName())
-                .id(accountId)
-                .build();
+        Account newAccount = account.toBuilder().id(accountId).build();
         boolean update = this.repository.update(newAccount);
         return update ? Optional.of(newAccount) : Optional.empty();
     }
